@@ -43,8 +43,7 @@ app.use((req, res, next) => {
   if (!originHeader) return next();
 
   const normalizedOrigin = normalizeOrigin(String(originHeader));
-  const isAllowed =
-    allowedOrigins.length === 0 || allowedOrigins.includes(normalizedOrigin);
+  const isAllowed = allowedOrigins.includes(normalizedOrigin);
 
   if (!isAllowed) return next();
 
@@ -89,11 +88,6 @@ const requireDb = (req: Request, res: Response, next: NextFunction) => {
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/admin", adminRoutes);
-
-
 app.use("/api/auth", requireDb, authRoutes);
 app.use("/api/users", requireDb, userRoutes);
 app.use("/api/admin", requireDb, adminRoutes);
