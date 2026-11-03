@@ -38,12 +38,13 @@ npm run dev
 ## Production notes (nginx)
 
 - If the frontend is served at `https://play.miscspace.tech`, set `CORS_ORIGIN=https://play.miscspace.tech`.
+- For a frontend hosted on a different origin, set `CORS_ORIGIN` to its exact origin(s), comma-separated (for example, `http://localhost:5173`). Cross-origin requests are not allowed when `CORS_ORIGIN` is unset.
+- When frontend and backend share an origin through nginx, browser CORS configuration is not needed.
 - Recommended nginx setup is:
 	- Serve the built client (Vite `dist/`) at `/`
 	- Proxy `/api/` to the backend (default `http://127.0.0.1:5000`)
 	- Proxy `/docs` (optional) to the backend if you want Swagger UI public
 
 For Swagger server URL in production, set `PUBLIC_BASE_URL=https://play.miscspace.tech`.
-
 
 
